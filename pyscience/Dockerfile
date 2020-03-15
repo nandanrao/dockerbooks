@@ -2,7 +2,9 @@ from nandanrao/base-notebook
 
 USER root
 
-RUN apt-get update && apt-get install --yes graphviz
+RUN apt-get update && apt-get install --yes \
+        graphviz \
+        gcc
 
 USER $NB_USER
 
@@ -19,4 +21,5 @@ RUN pip install  --user \
         nltk \
         spacy \
         ipywidgets \
-        rpy2
+        numba \
+        psutil
