@@ -1,9 +1,9 @@
-FROM nandanrao/base-notebook
+FROM dockerbooks/scipy
 
 USER root
 
 # Spark Versions
-ENV APACHE_SPARK_VERSION 2.4.4
+ENV APACHE_SPARK_VERSION 2.4.5
 ENV HADOOP_VERSION 2.7
 
 RUN apt-get update && apt-get install -y wget
@@ -15,11 +15,13 @@ RUN wget https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk
         rm OpenJDK8U-jdk_x64_linux_hotspot_8u242b08.tar.gz
 
 # Download Spark
-RUN cd /tmp && \
-    wget -q http://mirrors.ukfast.co.uk/sites/ftp.apache.org/spark/spark-${APACHE_SPARK_VERSION}/spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
-    echo "2E3A5C853B9F28C7D4525C0ADCB0D971B73AD47D5CCE138C85335B9F53A6519540D3923CB0B5CEE41E386E49AE8A409A51AB7194BA11A254E037A848D0C4A9E5 *spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz" | sha512sum -c - && \
-    tar xzf spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz -C /usr/local && \
-    rm spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz
+RUN SPARK_FILE=spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
+        cd /tmp && \
+        wget -q https://ftp.cixug.es/apache/spark/spark-${APACHE_SPARK_VERSION}/${SPARK_FILE} && \
+        echo "$(echo $(wget -q -O - https://downloads.apache.org/spark/spark-${APACHE_SPARK_VERSION}/${SPARK_FILE}.sha512) | cut -d : -f 2 | sed 's/ //g') *${SPARK_FILE}" | sha512sum -c - && \
+        tar xzf $SPARK_FILE -C /usr/local && \
+        rm $SPARK_FILE
+
 RUN cd /usr/local && mv spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} spark
 
 # Make spark folder user-owned, so we can change env vars/etc. easily

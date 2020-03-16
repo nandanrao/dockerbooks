@@ -1,4 +1,4 @@
-from nandanrao/base-notebook
+FROM dockerbooks/base
 
 USER root
 
@@ -9,17 +9,13 @@ RUN apt-get update && apt-get install --yes \
 USER $NB_USER
 
 RUN pip install  --user \
+        numba \
+        pandas \
         matplotlib \
         seaborn \
-        pandas \
         scikit-learn \
         Cython \
-        requests \
         pydotplus \
         graphviz \
-        gensim \
-        nltk \
-        spacy \
         ipywidgets \
-        numba \
         psutil

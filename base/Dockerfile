@@ -1,4 +1,4 @@
-FROM python:3.7-slim
+FROM python:3.8-slim
 
 ARG NB_USER="jupyter"
 ARG NB_UID="1000"
