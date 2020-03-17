@@ -1,4 +1,4 @@
-FROM dockerbooks/base
+FROM dockerbooks/base:3.7
 
 USER root
 

@@ -1,4 +1,4 @@
-FROM dockerbooks/scipy
+FROM dockerbooks/scipy:3.7
 
 USER root
 
