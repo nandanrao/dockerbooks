@@ -1,15 +1,15 @@
 FROM python:3.8-slim
 
-ARG NB_USER="jupyter"
-ARG NB_UID="1000"
+RUN useradd -ms /bin/bash -u 1000 jupyter
 
-ENV NB_USER=$NB_USER \
-    NB_UID=$NB_UID
+RUN mkdir /srv/users
+RUN chown jupyter:users /srv/users
+RUN chmod -R 774 /srv/users
 
-RUN useradd -ms /bin/bash -u $NB_UID $NB_USER
-USER $NB_USER
+ENV PYTHONUSERBASE "/srv/users"
+ENV PATH "${PYTHONUSERBASE}/bin:${PATH}"
 
-ENV PATH "/home/${NB_USER}/.local/bin:${PATH}"
+USER jupyter
 
 RUN pip install --user jupyter
 RUN mkdir /home/jupyter/work
