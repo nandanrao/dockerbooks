@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install --yes \
         graphviz \
         gcc
 
-USER $NB_USER
+USER jupyter
 
 RUN pip install  --user \
         numba \

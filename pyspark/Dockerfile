@@ -25,7 +25,7 @@ RUN SPARK_FILE=spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && 
 RUN cd /usr/local && mv spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} spark
 
 # Make spark folder user-owned, so we can change env vars/etc. easily
-RUN chown $NB_USER:users -R /usr/local/spark
+RUN chown jupyter:jupyter -R /usr/local/spark
 
 # Env Vars
 ENV PATH /usr/local/jdk8u242-b08/bin:$PATH
@@ -35,5 +35,5 @@ ENV SPARK_OPTS --driver-java-options=-Xms1024M --driver-java-options=-Xmx4096M -
 
 
 # Install PySpark
-USER $NB_USER
+USER jupyter
 RUN pip install --user pyspark
