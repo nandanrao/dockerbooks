@@ -4,7 +4,9 @@ USER root
 
 RUN apt-get update && apt-get install --yes \
         graphviz \
-        gcc
+        gcc \
+        git \
+        libspatialindex-dev
 
 USER jupyter
 
