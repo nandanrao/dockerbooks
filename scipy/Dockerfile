@@ -8,9 +8,7 @@ RUN apt-get update && apt-get install --yes \
         git \
         libspatialindex-dev
 
-USER jupyter
-
-RUN pip install  --user \
+RUN pip install \
         numba \
         pandas \
         matplotlib \
