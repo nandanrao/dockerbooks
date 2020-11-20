@@ -5,7 +5,7 @@ ARG USERID
 ARG GROUPID
 
 RUN addgroup --gid $GROUPID jupyter
-RUN useradd -ms /bin/bash -u $USERID -g $GROUPID jupyter
+RUN useradd -lms /bin/bash -u $USERID -g $GROUPID jupyter
 
 USER jupyter
 ENV HOME "/home/jupyter"
@@ -24,5 +24,6 @@ RUN chmod -R 774 /home/jupyter && \
         setfacl -R -d -m u::rwX -m g::rwX /home/jupyter
 
 
+# make
 USER jupyter
 RUN pip install --user jupyter
