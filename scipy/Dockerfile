@@ -5,6 +5,7 @@ USER root
 RUN apt-get update && apt-get install --yes \
         graphviz \
         gcc \
+        g++ \
         git \
         libspatialindex-dev
 
