@@ -29,3 +29,11 @@ Install extra python packages via pip with `--user` option:
 ``` shell
 pip install --user foo
 ```
+
+## Permissioning
+
+By default, the notebook runs as the `jupyter` user with UID/GID `1000`. To change this, you should build your own. For example, build the image in the /base-scipy folder as "base-scipy" and then:
+
+``` shell
+docker build --build-arg="BASE=base-scipy" --build-arg="USERID=1000" --build-arg="GROUPID=1000" -t dockerbooks/scipy .
+```
